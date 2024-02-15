@@ -82,6 +82,12 @@ const AuthForm = ({ classes, onLogin }) => {
         >
           Login
         </Button>
+        {/* <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          message="Note archived"
+          action={action}
+        /> */}
       </Paper>
     </div>
   );
