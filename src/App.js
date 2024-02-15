@@ -2,17 +2,14 @@
 import React, { useState } from "react";
 import AuthForm from "./components/AuthForm";
 import SideNavBar from "./components/sideNavBar";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
-  // const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = (employeeId) => {
-    const validEmployeeIds = ["123", "456", "789"];
-    if (validEmployeeIds.includes(employeeId)) {
+    if (employeeId) {
       setIsLoggedIn(true);
-      // navigate("/home");
     } else {
       alert("Invalid employee ID. Please try again.");
     }
@@ -20,12 +17,13 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      {!isLoggedIn && (
+        <div>
+          <AuthForm onLogin={handleLogin} />
+        </div>
+      )}
       <Routes>
-        {!isLoggedIn ? (
-          <Route path="/" element={<AuthForm onLogin={handleLogin} />} />
-        ) : (
-          <Route path="/home" element={<SideNavBar />} />
-        )}
+        <Route path="/home" element={<SideNavBar />} />
       </Routes>
     </BrowserRouter>
   );

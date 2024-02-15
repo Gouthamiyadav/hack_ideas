@@ -96,39 +96,33 @@ const SideNavBar = ({ classes }) => {
   return (
     <React.Fragment>
       <UpperNavBar />
-      <div style={{ position: "fixed", width: "230px" }}>
-        <BottomNavigation
-          onChange={handleClick}
-          showLabels
-          className={classes.root}
-        >
-          {Footerlist.map((item, index) => (
-            <BottomNavigationAction
-              key={index}
-              label={
-                <span className={classes.labelActiveText}>{item.label}</span>
-              }
-              classes={{ label: classes.textActive }}
-              sx={{
-                height: 64,
-                flexDirection: "row",
-                left: "20px",
-                alignSelf: "flex-start",
-              }}
-              icon={
-                <div className={classes.iconContainer}>
-                  <span className={classes.verticalLine}></span>
-                  <img
-                    src={item.icon}
-                    alt={item.alt}
-                    className={classes.image}
-                  />
-                </div>
-              }
-            />
-          ))}
-        </BottomNavigation>
-      </div>
+      <BottomNavigation
+        onChange={handleClick}
+        showLabels
+        className={classes.root}
+      >
+        {Footerlist.map((item, index) => (
+          <BottomNavigationAction
+            key={index}
+            label={
+              <span className={classes.labelActiveText}>{item.label}</span>
+            }
+            classes={{ label: classes.textActive }}
+            sx={{
+              height: 64,
+              flexDirection: "row",
+              left: "20px",
+              alignSelf: "flex-start",
+            }}
+            icon={
+              <div className={classes.iconContainer}>
+                <span className={classes.verticalLine}></span>
+                <img src={item.icon} alt={item.alt} className={classes.image} />
+              </div>
+            }
+          />
+        ))}
+      </BottomNavigation>
       <ChallengeForm onSubmit={handleChallengeSubmit} />
       <ChallengeList challenges={challenges} onUpvote={handleUpvote} />
     </React.Fragment>

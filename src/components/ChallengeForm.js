@@ -22,7 +22,7 @@ const styles = {
   },
   button: {
     position: "fixed",
-    top: 20,
+    top: 30,
     left: 1300,
     textTransform: "none",
   },

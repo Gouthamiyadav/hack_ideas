@@ -3,6 +3,7 @@ import { withStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -23,21 +24,34 @@ const styles = {
     borderRadius: "8px",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
   },
-  text: {
-    fontFamily: "Inter",
-    color: "#667085",
-    fontSize: "24px",
-    fontWeight: 600,
-    marginBottom: "32px",
+  errMessage: {
+    display: "flex",
+    alignItems: "center",
+    fontSize: "6px",
+    color: "#FF0000",
+    paddingBottom: "10px",
   },
 };
 
 const AuthForm = ({ classes, onLogin }) => {
+  const navigate = useNavigate();
   const [employeeId, setEmployeeId] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin(employeeId);
+    try {
+      await fetch("/api/employees", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ employeeId }),
+      });
+      onLogin(employeeId);
+      navigate("/home");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -82,12 +96,6 @@ const AuthForm = ({ classes, onLogin }) => {
         >
           Login
         </Button>
-        {/* <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          message="Note archived"
-          action={action}
-        /> */}
       </Paper>
     </div>
   );
