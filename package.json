@@ -43,7 +43,10 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.2.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AuthForm from "./components/AuthForm";
 import SideNavBar from "./components/sideNavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthForm from "./components/Login/AuthForm";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
