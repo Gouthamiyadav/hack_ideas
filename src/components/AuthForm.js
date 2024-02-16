@@ -39,20 +39,26 @@ const AuthForm = ({ classes, onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await fetch("/api/employees", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ employeeId }),
-      });
-      onLogin(employeeId);
-      navigate("/home");
-    } catch (err) {
-      console.error(err);
-    }
+    onLogin(employeeId);
+    navigate("/home");
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await fetch("https://hackidea-7797daa46276.herokuapp.com/api/register", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ employeeId }),
+  //     });
+  //     onLogin(employeeId);
+  //     navigate("/home");
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <div className={classes.container}>

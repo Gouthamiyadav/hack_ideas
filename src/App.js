@@ -4,11 +4,15 @@ import SideNavBar from "./components/sideNavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
 
   const handleLogin = (employeeId) => {
     if (employeeId) {
       setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.removeItem("isLoggedIn");
     } else {
       alert("Invalid employee ID. Please try again.");
     }
@@ -21,9 +25,11 @@ const App = () => {
           <AuthForm onLogin={handleLogin} />
         </div>
       )}
-      <Routes>
-        <Route path="/home" element={<SideNavBar />} />
-      </Routes>
+      {isLoggedIn && (
+        <Routes>
+          <Route path="/home" element={<SideNavBar />} />
+        </Routes>
+      )}
     </BrowserRouter>
   );
 };
