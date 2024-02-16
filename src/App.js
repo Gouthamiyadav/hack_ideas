@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from "react";
 import AuthForm from "./components/AuthForm";
 import SideNavBar from "./components/sideNavBar";
