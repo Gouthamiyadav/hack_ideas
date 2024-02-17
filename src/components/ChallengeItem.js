@@ -54,7 +54,7 @@ const ChallengeItem = ({ classes, challenge, onUpvote }) => {
       <div className={classes.root}>
         <div className={classes.content}>
           <h2>Title - {challenge.title}</h2>
-          <Typography sx={{ marginBottom: "10px" }}>
+          <Typography sx={{ marginBottom: "10px", marginRight: "160px" }}>
             {challenge.description}
           </Typography>
           <Typography>
