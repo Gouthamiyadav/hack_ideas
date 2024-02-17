@@ -12,13 +12,12 @@ const styles = {
     borderRadius: "4px",
     padding: "10px",
     marginBottom: "10px",
-    marginLeft: "250px",
-    marginRight: "170px",
-    marginTop: "50px",
+    marginLeft: "80px",
+    marginRight: "160px",
+    marginTop: "30px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    // alignItems: "center",
   },
   line: {
     borderBottom: "1px solid #ccc",
@@ -29,7 +28,7 @@ const styles = {
 const sampleChallenge = ({ classes }) => {
   return (
     <div className={classes.root}>
-      <h3>Sample Challenge</h3>
+      <h2>Title - Sample Challenge</h2>
       <Typography className={classes.description}>
         Build a web application which lets employees of an organisation to
         add/manage challenges for internal hackathons which they organise every

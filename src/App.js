@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import SideNavBar from "./components/sideNavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthForm from "./components/Login/AuthForm";
+import HomePage from "./components/HomePage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -27,7 +27,7 @@ const App = () => {
       )}
       {isLoggedIn && (
         <Routes>
-          <Route path="/home" element={<SideNavBar />} />
+          <Route path="/home" element={<HomePage />} />
         </Routes>
       )}
     </BrowserRouter>

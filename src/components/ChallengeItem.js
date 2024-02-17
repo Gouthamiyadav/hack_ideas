@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { withStyles } from "@mui/styles";
 import { Typography } from "@mui/material";
 
@@ -9,7 +9,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     cursor: "pointer",
-    margin: "0px 170px 10px 240px",
+    margin: "0px 10px 10px 80px",
   },
   content: {
     flex: 1,
@@ -22,13 +22,14 @@ const styles = {
   },
   line: {
     borderBottom: "1px solid #ccc",
-    marginBottom: "10px",
-    marginLeft: "240px",
+    // marginBottom: "10px",
+    marginLeft: "80px",
+    marginRight: "150px",
   },
   button: {
     padding: "5px 10px",
     backgroundColor: "#007bff",
-    marginTop: "10px",
+    marginTop: "20px",
     marginRight: "100px",
     fontSize: "16px",
     color: "white",
@@ -37,9 +38,6 @@ const styles = {
     cursor: "pointer",
     outline: "none",
   },
-  description: {
-    marginBottom: "10px",
-  },
   div: {
     display: "flex",
     flexDirection: "row",
@@ -47,12 +45,6 @@ const styles = {
 };
 
 const ChallengeItem = ({ classes, challenge, onUpvote }) => {
-  const [showDetails, setShowDetails] = useState(false);
-
-  const handleToggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
-
   const handleUpvote = () => {
     onUpvote(challenge.id);
   };
@@ -60,23 +52,19 @@ const ChallengeItem = ({ classes, challenge, onUpvote }) => {
   return (
     <div>
       <div className={classes.root}>
-        <div className={classes.content} onClick={handleToggleDetails}>
-          <h3>{challenge.title}</h3>
-          {/* {showDetails && ( */}
-          <>
-            <Typography className={classes.description}>
-              {challenge.description}
-            </Typography>
-            <Typography>
-              <strong>Tag:</strong> {challenge.tags}
-            </Typography>
-          </>
-          {/* )} */}
+        <div className={classes.content}>
+          <h2>Title - {challenge.title}</h2>
+          <Typography sx={{ marginBottom: "10px" }}>
+            {challenge.description}
+          </Typography>
+          <Typography>
+            <strong>Tag:</strong> {challenge.tags}
+          </Typography>
           <div className={classes.div}>
             <button className={classes.button} onClick={handleUpvote}>
               Votes
             </button>
-            <Typography sx={{ marginTop: "18px" }}>
+            <Typography sx={{ marginTop: "20px" }}>
               <strong>Votes:</strong> {challenge.votes}
             </Typography>
           </div>
