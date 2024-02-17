@@ -39,26 +39,30 @@ const AuthForm = ({ classes, onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin(employeeId);
-    navigate("/home");
+    try {
+      const formData = new URLSearchParams();
+      formData.append("employeeId", employeeId);
+      const response = await fetch(
+        "https://hackidea-7797daa46276.herokuapp.com/api/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: formData,
+        }
+      );
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        console.error(`API Error: ${response.status} - ${errorMessage}`);
+        return;
+      }
+      onLogin(employeeId);
+      navigate("/home");
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await fetch("https://hackidea-7797daa46276.herokuapp.com/api/register", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ employeeId }),
-  //     });
-  //     onLogin(employeeId);
-  //     navigate("/home");
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
 
   return (
     <div className={classes.container}>

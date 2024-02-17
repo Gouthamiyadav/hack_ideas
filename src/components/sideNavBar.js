@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { withStyles } from "@mui/styles";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import UpperNavBar from "./upNavBar";
-import ChallengeForm from "./ChallengeForm";
 import ChallengeList from "./ChallengeList";
 
 const styles = {
@@ -72,26 +71,26 @@ const Footerlist = [
 ];
 
 const SideNavBar = ({ classes }) => {
-  const [challenges, setChallenges] = useState([]);
+  // const [challenges, setChallenges] = useState([]);
   const handleClick = (e) => {};
 
-  const handleChallengeSubmit = (newChallenge) => {
-    setChallenges([
-      ...challenges,
-      { ...newChallenge, id: challenges.length + 1, votes: 0 },
-    ]);
-  };
+  // const handleChallengeSubmit = (newChallenge) => {
+  //   setChallenges([
+  //     ...challenges,
+  //     { ...newChallenge, id: challenges.length + 1, votes: 0 },
+  //   ]);
+  // };
 
-  const handleUpvote = (challengeId) => {
-    setChallenges(
-      challenges.map((challenge) => {
-        if (challenge.id === challengeId) {
-          return { ...challenge, votes: challenge.votes + 1 };
-        }
-        return challenge;
-      })
-    );
-  };
+  // const handleUpvote = (challengeId) => {
+  //   setChallenges(
+  //     challenges.map((challenge) => {
+  //       if (challenge.id === challengeId) {
+  //         return { ...challenge, votes: challenge.votes + 1 };
+  //       }
+  //       return challenge;
+  //     })
+  //   );
+  // };
 
   return (
     <React.Fragment>
@@ -123,8 +122,8 @@ const SideNavBar = ({ classes }) => {
           />
         ))}
       </BottomNavigation>
-      <ChallengeForm onSubmit={handleChallengeSubmit} />
-      <ChallengeList challenges={challenges} onUpvote={handleUpvote} />
+      {/* <ChallengeForm onSubmit={handleChallengeSubmit} /> */}
+      <ChallengeList />
     </React.Fragment>
   );
 };

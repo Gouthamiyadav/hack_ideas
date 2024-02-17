@@ -36,12 +36,12 @@ const styles = {
 
 const Tags = [
   {
-    value: "Feature",
-    label: "Feature",
+    value: "feature",
+    label: "feature",
   },
   {
-    value: "Tech",
-    label: "Tech",
+    value: "tech",
+    label: "tech",
   },
 ];
 
@@ -59,13 +59,31 @@ const ChallengeForm = ({ classes, onSubmit }) => {
     setOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit({ title, description, tags });
-    setTitle("");
-    setDescription("");
-    setTags("");
-    handleClose();
+    try {
+      const response = await fetch(
+        "https://hackidea-7797daa46276.herokuapp.com/api/challenges",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, description, tags }),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      onSubmit(data.challenge);
+      setTitle("");
+      setDescription("");
+      setTags("");
+      handleClose();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -79,10 +97,7 @@ const ChallengeForm = ({ classes, onSubmit }) => {
       </Button>
       <Modal open={open} onClose={handleClose}>
         <div className={classes.form}>
-          <CloseIcon
-            className={classes.closeButton}
-            onClick={(e) => setOpen(false)}
-          />
+          <CloseIcon className={classes.closeButton} onClick={handleClose} />
           <TextField
             sx={{ width: "100%", marginBottom: 2 }}
             type="text"
@@ -124,6 +139,7 @@ const ChallengeForm = ({ classes, onSubmit }) => {
           </Button>
         </div>
       </Modal>
+
       <SampleChallenge />
     </div>
   );

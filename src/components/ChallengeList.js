@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
+import ChallengeForm from "./ChallengeForm";
 import ChallengeItem from "./ChallengeItem";
 
 const Container = styled("div")({
@@ -8,30 +9,45 @@ const Container = styled("div")({
   alignItems: "center",
 });
 
-const ChallengeList = ({ challenges, onUpvote }) => {
-  // const [challenges, setChallenges] = useState([]);
+const ChallengeList = ({ onUpvote }) => {
+  const [challenges, setChallenges] = useState([]);
 
-  // useEffect(() => {
-  //   fetchChallenges();
-  // }, []);
+  useEffect(() => {
+    fetchChallenges();
+  }, []);
 
-  // const fetchChallenges = async () => {
+  const fetchChallenges = async () => {
+    try {
+      const response = await fetch(
+        "https://hackidea-7797daa46276.herokuapp.com/api/challenges"
+      );
+      const data = await response.json();
+      setChallenges(data.challenges);
+    } catch (error) {
+      console.error("Error fetching challenges:", error);
+    }
+  };
+
+  // const handleUpvote = async (challengeId, userId) => {
   //   try {
-  //     const response = await fetch("https://hackidea-7797daa46276.herokuapp.com/api/challenges");
-  //     const data = await response.json();
-  //     setChallenges(data.challenges);
-  //   } catch (error) {
-  //     console.error("Error fetching challenges:", error);
-  //   }
-  // };
-
-  // const handleUpvote = async (challengeId) => {
-  //   try {
-  //     const response = await fetch(`https://hackidea-7797daa46276.herokuapp.com/api/challenges/${challengeId}/upvote`, {
-  //       method: "POST",
-  //     });
+  //     const response = await fetch(
+  //       `https://hackidea-7797daa46276.herokuapp.com/api/challenges/${challengeId}/upvote`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ userId }),
+  //       }
+  //     );
   //     if (response.ok) {
-  //       fetchChallenges();
+  //       setChallenges((prevChallenges) =>
+  //         prevChallenges.map((challenge) =>
+  //           challenge.id === challengeId
+  //             ? { ...challenge, votes: challenge.votes + 1 }
+  //             : challenge
+  //         )
+  //       );
   //     } else {
   //       console.error("Failed to upvote challenge");
   //     }
@@ -40,8 +56,27 @@ const ChallengeList = ({ challenges, onUpvote }) => {
   //   }
   // };
 
+  // const handleUpvote = (challengeId) => {
+  //   setChallenges(
+  //     challenges.map((challenge) => {
+  //       if (challenge.id === challengeId) {
+  //         return { ...challenge, votes: challenge.votes + 1 };
+  //       }
+  //       return challenge;
+  //     })
+  //   );
+  // };
+
+  const handleChallengeSubmit = (newChallenge) => {
+    setChallenges([
+      ...challenges,
+      { ...newChallenge, id: challenges.length + 1, votes: 0 },
+    ]);
+  };
+
   return (
     <Container>
+      <ChallengeForm onSubmit={handleChallengeSubmit} />
       {challenges.map((challenge) => (
         <ChallengeItem
           key={challenge.id}
