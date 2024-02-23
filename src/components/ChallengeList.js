@@ -28,15 +28,25 @@ const ChallengeList = () => {
       console.error("Error fetching challenges:", error);
     }
   };
-  const handleUpvote = (challengeId) => {
-    setChallenges(
-      challenges.map((challenge) => {
-        if (challenge.id === challengeId) {
-          return { ...challenge, votes: challenge.votes };
+  const handleUpvote = async (challengeId) => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const formData = new URLSearchParams();
+      formData.append("userId", user._id);
+      const response = await fetch(
+        `https://hackidea-7797daa46276.herokuapp.com/api/challenges/${challengeId}/upvote`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: formData,
         }
-        return challenge;
-      })
-    );
+      );
+      await fetchChallenges();
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
   const handleChallengeSubmit = (newChallenge) => {
     setChallenges([

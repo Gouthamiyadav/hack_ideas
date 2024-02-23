@@ -46,6 +46,7 @@ const Tags = [
 ];
 
 const ChallengeForm = ({ classes, onSubmit }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
@@ -101,7 +102,6 @@ const ChallengeForm = ({ classes, onSubmit }) => {
           <TextField
             sx={{ width: "100%", marginBottom: 2 }}
             type="text"
-            required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             label="Enter Title"
@@ -110,7 +110,6 @@ const ChallengeForm = ({ classes, onSubmit }) => {
             sx={{ width: "100%", marginBottom: 2 }}
             multiline
             rows={4}
-            required
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             label="Enter Description"

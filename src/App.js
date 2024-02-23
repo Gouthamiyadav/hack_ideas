@@ -1,35 +1,32 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AuthForm from "./components/Login/AuthForm";
 import HomePage from "./components/HomePage";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
+  const [userData, setUserData] = useState(localStorage.getItem("user"));
+
+  useEffect(() => {
+    setUserData(!!userData);
+  }, [localStorage.getItem("user")]);
 
   const handleLogin = (employeeId) => {
+    console.log("employeeId value is", employeeId);
     if (employeeId) {
-      setIsLoggedIn(true);
+      setUserData(true);
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.removeItem("isLoggedIn");
     } else {
+      localStorage.removeItem("isLoggedIn");
       alert("Invalid employee ID. Please try again.");
     }
   };
 
   return (
     <BrowserRouter>
-      {!isLoggedIn && (
-        <div>
-          <AuthForm onLogin={handleLogin} />
-        </div>
-      )}
-      {isLoggedIn && (
-        <Routes>
-          <Route path="/home" element={<HomePage />} />
-        </Routes>
-      )}
+      <Routes>
+        <Route path="/" element={<AuthForm onLogin={handleLogin} />} />
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
     </BrowserRouter>
   );
 };

@@ -43,7 +43,7 @@ const AuthForm = ({ classes, onLogin }) => {
       const formData = new URLSearchParams();
       formData.append("employeeId", employeeId);
       const response = await fetch(
-        "https://hackidea-7797daa46276.herokuapp.com/api/signin",
+        `https://hackidea-7797daa46276.herokuapp.com/api/signin`,
         {
           method: "POST",
           headers: {
@@ -51,10 +51,14 @@ const AuthForm = ({ classes, onLogin }) => {
           },
           body: formData,
         }
-      );
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        console.error(`API Error: ${response.status} - ${errorMessage}`);
+      )
+        .then((response) => response.json())
+        .then((responseBody) => {
+          localStorage.setItem("user", JSON.stringify(responseBody.user));
+          return responseBody;
+        });
+      if (!response.success) {
+        alert(`${response.message}`);
         return;
       }
       onLogin(employeeId);

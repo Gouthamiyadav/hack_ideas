@@ -46,7 +46,7 @@ const styles = {
 
 const ChallengeItem = ({ classes, challenge, onUpvote }) => {
   const handleUpvote = () => {
-    onUpvote(challenge.id);
+    onUpvote(challenge._id);
   };
 
   return (
@@ -65,7 +65,7 @@ const ChallengeItem = ({ classes, challenge, onUpvote }) => {
               Votes
             </button>
             <Typography sx={{ marginTop: "20px" }}>
-              <strong>Votes:</strong> {challenge.votes}
+              <strong>Votes:</strong> {challenge.upvotes}
             </Typography>
           </div>
         </div>
